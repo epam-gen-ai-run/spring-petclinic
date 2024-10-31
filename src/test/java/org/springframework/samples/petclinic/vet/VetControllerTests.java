@@ -84,8 +84,13 @@ class VetControllerTests {
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/vets.html?page=1"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("listVets"))
-			.andExpect(view().name("vets/vetList"));
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.vetList[0].id").value(1))
+			.andExpect(jsonPath("$.vetList[0].firstName").value("James"))
+			.andExpect(jsonPath("$.vetList[0].lastName").value("Carter"))
+			.andExpect(jsonPath("$.vetList[1].id").value(2))
+			.andExpect(jsonPath("$.vetList[1].firstName").value("Helen"))
+			.andExpect(jsonPath("$.vetList[1].lastName").value("Leary"));
 
 	}
 
