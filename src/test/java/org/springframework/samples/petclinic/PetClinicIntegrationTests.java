@@ -45,8 +45,8 @@ public class PetClinicIntegrationTests {
 
 	@Test
 	void testFindAll() {
-		vets.findAll();
-		vets.findAll(); // served from cache
+		assertThat(vets.findAll()).isNotEmpty();
+		assertThat(vets.findAll()).isNotEmpty(); // served from cache
 	}
 
 	@Test

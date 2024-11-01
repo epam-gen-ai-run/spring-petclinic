@@ -80,8 +80,8 @@ public class PostgresIntegrationTests {
 
 	@Test
 	void testFindAll() throws Exception {
-		vets.findAll();
-		vets.findAll(); // served from cache
+		assertThat(vets.findAll()).isNotEmpty();
+		assertThat(vets.findAll()).isNotEmpty(); // served from cache
 	}
 
 	@Test
