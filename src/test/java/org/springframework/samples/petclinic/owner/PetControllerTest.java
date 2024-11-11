@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.bind.WebDataBinder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -58,6 +59,19 @@ class PetControllerTest {
 		// Assert
 		assertThat(result).isEqualTo(owner);
 		verify(ownerRepository).findById(1);
+	}
+
+	@Test
+	@DisplayName("Test initOwnerBinder method")
+	void testInitOwnerBinder() {
+		// Arrange
+		WebDataBinder dataBinder = new WebDataBinder(null, "owner");
+
+		// Act
+		petController.initOwnerBinder(dataBinder);
+
+		// Assert
+		assertThat(Arrays.asList(dataBinder.getDisallowedFields())).contains("id");
 	}
 
 }
