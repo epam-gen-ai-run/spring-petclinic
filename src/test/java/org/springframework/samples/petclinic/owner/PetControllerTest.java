@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -84,6 +86,23 @@ class PetControllerTest {
 
 		// Act
 		String viewName = petController.initCreationForm(owner, model);
+
+		// Assert
+		assertThat(viewName).isEqualTo("pets/createOrUpdatePetForm");
+		assertThat(model.containsAttribute("pet")).isTrue();
+	}
+
+	@Test
+	@DisplayName("Test initUpdateForm method")
+	void testInitUpdateForm() {
+		// Arrange
+		Owner owner = new Owner();
+		int petId = 1;
+		ModelMap model = new ModelMap();
+		RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+
+		// Act
+		String viewName = petController.initUpdateForm(owner, petId, model, (RedirectAttributes) redirectAttributes);
 
 		// Assert
 		assertThat(viewName).isEqualTo("pets/createOrUpdatePetForm");
