@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.owner;
 
 import static org.mockito.Mockito.doReturn;
+import org.springframework.ui.ModelMap;
 import static org.mockito.Mockito.verify;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -72,6 +73,21 @@ class PetControllerTest {
 
 		// Assert
 		assertThat(Arrays.asList(dataBinder.getDisallowedFields())).contains("id");
+	}
+
+	@Test
+	@DisplayName("Test initCreationForm method")
+	void testInitCreationForm() {
+		// Arrange
+		Owner owner = new Owner();
+		ModelMap model = new ModelMap();
+
+		// Act
+		String viewName = petController.initCreationForm(owner, model);
+
+		// Assert
+		assertThat(viewName).isEqualTo("pets/createOrUpdatePetForm");
+		assertThat(model.containsAttribute("pet")).isTrue();
 	}
 
 }
